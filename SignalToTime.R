@@ -40,7 +40,7 @@ update_times <- function(data, times){
   i <- i + length(data_fragment)
   
   for (j in 2:k){
-    data_fragment <- data[times[[j]]:times[[j + 1]]]
+    data_fragment <- data[times[[j]]:(times[[j + 1]]-1)]
     means[[j]] <- get_mean(data_fragment, i)
     sigmas[[j]] <- get_sd(data_fragment, i) 
     sigma <- sigma + (length(data_fragment) - 1) * sigmas[[j]]
@@ -84,7 +84,9 @@ get_sd <- function(data, strt){
   return(sd_data - mean_data * mean_data)
 }
 
-signal <- readRDS("./Farhangsara.Rds")
-plot(signal)
-k <- 50
-print(find_t(signal, k))
+signal <- readRDS("./Farhangsara.Rds")[1:1441]
+plot(signal, type = 'l', col = 'blue')
+k <- 24
+ans <- find_t(signal, k)
+print((ans-1)/60)
+abline(v = ans, col = 'red')
