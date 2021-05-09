@@ -84,9 +84,11 @@ get_sd <- function(data, strt){
   return(sd_data - mean_data * mean_data)
 }
 
-signal <- readRDS("./Farhangsara.Rds")[350:1441]
+signal <- readRDS("./Farhangsara.Rds")[1:1441]
 plot(signal, type = 'l', col = 'blue')
-k <- length(signal) %/% 4
+k <- length(signal) %/% 6
+title(paste("k = ",k))
+
 ans <- find_t(signal, k)
 print((ans-1))
 abline(v = ans, col = 'red')
